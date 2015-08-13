@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   resources :relationships, only: [:create, :destroy]
 
-  namespace :api do
+  namespace :api, defaults: { format: 'json' } do
     get 'microposts/feed_items'
   end
 
