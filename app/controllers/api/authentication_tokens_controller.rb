@@ -1,13 +1,14 @@
 module Api
   class AuthenticationTokensController < Api::ApplicationController
+    include AuthenticateUserFromToken
 
     def update
-      token = current_user.generate_authentication_token
-      render json: {token: token}
+      token = @user.generate_authentication_token
+      render json: { authentication_token: token }
     end
 
     def destroy
-      current_user.delete_authentication_token
+      @user.delete_authentication_token
       render nothing: true
     end
 

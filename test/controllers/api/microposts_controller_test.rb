@@ -7,18 +7,20 @@ module Api
     end
 
     test "return microposts json array" do
-      response = get :feed_items, format: :json
+      user = User.find_by(email: 'michael@example.com')
+      token = user.generate_authentication_token
+      response = get :feed_items ,{ email: 'michael@example.com', authentication_token: token }
       response_body = JSON.parse response.body
       micropost = {
         id: Integer,
         content: String,
-        user_id: 762146111,
+        user_id: Integer,
         created_at: String,
         updated_at: String,
         picture: wildcard_matcher
       }
       pattern = []
-      34.times { pattern << micropost }
+      36.times { pattern << micropost }
       assert_json_match pattern, response_body
     end
   end

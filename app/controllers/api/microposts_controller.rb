@@ -1,12 +1,8 @@
 class Api::MicropostsController < Api::ApplicationController
-  def feed_items
-    # @feed_items = current_user.feed
-    # user = User.find_by(email: 'michael@example.com')
-    user = User.first
-    @feed_items = user.microposts
-  end
+  include AuthenticateUserFromToken
 
-  def auth
-    basic_auth
+  def feed_items
+    @feed_items = @user.feed
+    render json: @feed_items
   end
 end
