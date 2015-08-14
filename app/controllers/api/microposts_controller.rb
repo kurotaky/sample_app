@@ -5,4 +5,8 @@ class Api::MicropostsController < Api::ApplicationController
     user = User.first
     @feed_items = user.microposts
   end
+
+  def auth
+    basic_auth
+  end
 end

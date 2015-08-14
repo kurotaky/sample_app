@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     get 'microposts/feed_items'
+    get 'microposts/auth'
+    resource :authentication_tokens, only: [:create, :update, :destroy]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
