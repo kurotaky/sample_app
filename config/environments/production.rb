@@ -64,15 +64,15 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  host = "https://sheltered-bastion-5245.herokuapp.com"
+  host = "https://sample-app-1234kuro.sqale.jp/"
   config.action_mailer.default_url_options = {host: host}
   ActionMailer::Base.smtp_settings = {
-    address:              "smtp.lolipop.jp",
+    address:              "mail0.heteml.jp",
     port:                 587,
     authentication:       :plain,
-    user_name:            ENV['LOLIPOP_MAIL_USERNAME'],
-    password:             ENV['LOLIPOP_MAIL_PASSWORD'],
-    domain:               "joe-noh.pw",
+    user_name:            ENV['HETEML_MAIL_USERNAME'],
+    password:             ENV['HETEML_MAIL_PASSWORD'],
+    # domain:               "joe-noh.pw",
     enable_starttls_auto: true
   }
 
