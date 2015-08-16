@@ -25,6 +25,5 @@ test:
 production:
   <<: *default
   database: sqale_97704d5b96
-  production:
   encoding: utf8
   host: mysql001.sqale.jp
