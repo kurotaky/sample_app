@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
                     uniqueness: {case_sensitive: false}
 
   validates :password, presence: true, length: {minimum: 6}, allow_nil: true
+  validates :authentication_token, uniqueness: true, allow_nil: true
 
   attr_accessor :remember_token
 
@@ -95,6 +96,22 @@ class User < ActiveRecord::Base
 
   def following?(other)
     following.include? other
+  end
+
+  def ensure_authentication_token
+    self.authentication_token || generate_authentication_token
+  end
+
+  def generate_authentication_token
+    loop do
+      old_token = self.authentication_token
+      token = User.new_token
+      break token if (self.update!(authentication_token: token) rescue false) && old_token != token
+    end
+  end
+
+  def delete_authentication_token
+    self.update(authentication_token: nil)
   end
 
   private

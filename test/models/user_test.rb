@@ -6,6 +6,22 @@ class UserTest < ActiveSupport::TestCase
                      password: "foobar", password_confirmation: "foobar")
   end
 
+  test "generate_authentication_token" do
+    assert_match(/[a-zA-Z0-9_-]{22}/, @user.generate_authentication_token)
+  end
+
+  test "delete_authentication_token" do
+    @user.authentication_token = User.new_token
+    @user.save
+    assert_not_nil @user.reload.authentication_token
+    @user.delete_authentication_token
+    assert_nil @user.reload.authentication_token
+  end
+
+  test "ensure_authentication_token" do
+    assert_match(/[a-zA-Z0-9_-]{22}/, @user.ensure_authentication_token)
+  end
+
   test "should be valid" do
     assert @user.valid?
   end
